@@ -65,7 +65,8 @@
 
 ## 5. Technical Analysis
 
-- ###**Initial access** Emails were sent from 'newspaper_jobs@gmail[.]com' and 'valdorias_best_recruiter@gmail[.]com' containing links that both users clicked. This was observed on querying the 'Email' table. Pivoting over to the 'OutboundNetworkEvents' table, I checked the links against their IPs. Reference to their job roles solidified the spearphishing assessment with high confidence. 
+- ### Initial access
+   Emails were sent from 'newspaper_jobs@gmail[.]com' and 'valdorias_best_recruiter@gmail[.]com' containing links that both users clicked. This was observed on querying the 'Email' table. Pivoting over to the 'OutboundNetworkEvents' table, I checked the links against their IPs. Reference to their job roles solidified the spearphishing assessment with high confidence. 
 
 Query: 
 ```kusto
@@ -86,7 +87,8 @@ Result:
 }
 ```
 
--  ###**Execution** Upon clicking, a file was downloaded onto the system. It dropped the script 'hacktivist_manifesto.ps1', which executed 3 related commands. Identical actions across the compromised hosts shows that the attacks are related with high confidence. 
+- ### Execution
+  Upon clicking, a file was downloaded onto the system. It dropped the script 'hacktivist_manifesto.ps1', which executed 3 related commands. Identical actions across the compromised hosts shows that the attacks are related with high confidence. 
 
 Query:
 ```kusto
@@ -97,7 +99,8 @@ ProcessEvents
 Result:
    ![Process execution](screenshots/execution.png)
 
--  ###**Persistence** A scheduled task, set to run every 5 hours with -ExecutionPolicy Bypass, was created among the commands executed. Attempt to keep access after reboots. Confidence: high. 
+-  ### Persistence
+   A scheduled task, set to run every 5 hours with -ExecutionPolicy Bypass, was created among the commands executed. Attempt to keep access after reboots. Confidence: high. 
 
 Query:
 ```kusto
@@ -119,7 +122,8 @@ Result:
 }
 ```
 
--  ###**Command and control** Execution of 'plink.exe' against the IPs '136[.]130[.]190[.]181', '168[.]57[.]191[.]100', creating an SSH tunnel to execute commands remotely. Same credentials used for setup. Confidence: high. 
+-  ### Command and control
+   Execution of 'plink.exe' against the IPs '136[.]130[.]190[.]181', '168[.]57[.]191[.]100', creating an SSH tunnel to execute commands remotely. Same credentials used for setup. Confidence: high. 
 
 Query:
 ```kusto
@@ -141,7 +145,8 @@ Result:
 }
 ```
 
--  ###**Discovery** 5 discovery commands ran on the host right after remote connection was established. This points to reconnaissance and not normal user behavior, ruling out IT support. Confidence: High. 
+-  ### Discovery
+   5 discovery commands ran on the host right after remote connection was established. This points to reconnaissance and not normal user behavior, ruling out IT support. Confidence: High. 
 
 Query:
 ```kusto
@@ -153,7 +158,8 @@ Result:
    ![Discovery Commands](screenshots/discovery.png)
    
 
--  ###**Impact** Allegedly, the attacker gained hands-on keyboard access to the host. They downloaded the unauthorized article onto the system, moving it to a legitimate location and renaming it 'OpEdFinal_to_print.docx'. This copy was then mailed to the publisher. 
+-  ### Impact
+   Allegedly, the attacker gained hands-on keyboard access to the host. They downloaded the unauthorized article onto the system, moving it to a legitimate location and renaming it 'OpEdFinal_to_print.docx'. This copy was then mailed to the publisher. 
 
 Query:
 ```kusto
@@ -192,7 +198,8 @@ Result:
 }
 ```
 
--  ###**Exfiltration** 3 folders from the host 'A37A-DESKTOP' were compressed and sent over to the url 'hxxps://hirejob[.]com/exfil_processor/upload[.]php'. It was implied that the data was uploaded onto dark web. 
+-  ### Exfiltration
+   3 folders from the host 'A37A-DESKTOP' were compressed and sent over to the url 'hxxps://hirejob[.]com/exfil_processor/upload[.]php'. It was implied that the data was uploaded onto dark web. 
 
 Query:
 ```kusto
